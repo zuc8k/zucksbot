@@ -1,0 +1,104 @@
+html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>ZUCKS — Dashboard</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+  body { background: #0f172a; color: #e2e8f0; min-height: 100vh; padding: 24px; }
+  header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 24px; background: rgba(30, 27, 75, .6);
+    border: 1px solid #4c1d95; border-radius: 14px; margin-bottom: 24px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand img { width: 44px; height: 44px; border-radius: 50%; border: 2px solid #a78bfa; }
+  .brand h1 { color: #a78bfa; font-size: 22px; }
+  .brand small { color: #94a3b8; }
+  .logout {
+    color: #f87171; text-decoration: none; border: 1px solid #f87171;
+    padding: 8px 14px; border-radius: 8px; font-size: 13px;
+  }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .card {
+    background: rgba(30, 27, 75, .5); border: 1px solid #4c1d95;
+    border-radius: 14px; padding: 20px;
+  }
+  .card h3 { color: #94a3b8; font-size: 13px; margin-bottom: 8px; }
+  .card .num { font-size: 28px; font-weight: bold; color: #a78bfa; }
+  section { background: rgba(30, 27, 75, .4); border: 1px solid #4c1d95; border-radius: 14px; padding: 20px; margin-bottom: 20px; }
+  section h2 { color: #a78bfa; font-size: 17px; margin-bottom: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { padding: 10px; text-align: right; border-bottom: 1px solid #334155; }
+  th { color: #94a3b8; font-size: 12px; }
+  td img { width: 30px; height: 30px; border-radius: 50%; vertical-align: middle; }
+  .dot { display: inline-block; width: 8px; height: 8px; background: #22c55e; border-radius: 50%; margin-left: 6px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <img src="<%= bot.avatar %>" alt="bot">
+    <div>
+      <h1><%= bot.tag %></h1>
+      <small><span class="dot"></span> Online — Ping: <%= bot.ping %>ms</small>
+    </div>
+  </div>
+  <div>
+    <span style="color:#94a3b8;font-size:13px;margin-left:12px;">👤 <%= user.username %></span>
+    <a class="logout" href="/logout">خروج</a>
+  </div>
+</header>
+
+<div class="cards">
+  <div class="card"><h3>عدد السيرفرات</h3><div class="num"><%= stats.guilds %></div></div>
+  <div class="card"><h3>إجمالي الأعضاء</h3><div class="num"><%= stats.users %></div></div>
+  <div class="card"><h3>Ping</h3><div class="num"><%= bot.ping %>ms</div></div>
+  <div class="card"><h3>مدة التشغيل</h3><div class="num"><%= Math.floor(bot.uptime / 3600) %>س</div></div>
+</div>
+
+<section>
+  <h2>📊 السيرفرات</h2>
+  <table>
+    <thead>
+      <tr><th>الأيقونة</th><th>الاسم</th><th>الأعضاء</th><th>ID</th></tr>
+    </thead>
+    <tbody>
+      <% guilds.forEach(g => { %>
+        <tr>
+          <td><img src="<%= g.icon || 'https://cdn.discordapp.com/embed/avatars/0.png' %>"></td>
+          <td><%= g.name %></td>
+          <td><%= g.member_count %></td>
+          <td><code style="color:#94a3b8;font-size:12px;"><%= g.id %></code></td>
+        </tr>
+      <% }); %>
+      <% if (!guilds.length) { %>
+        <tr><td colspan="4" style="text-align:center;color:#94a3b8;">لا توجد سيرفرات</td></tr>
+      <% } %>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>📝 آخر الأحداث</h2>
+  <table>
+    <thead><tr><th>الحدث</th><th>التفاصيل</th><th>الوقت</th></tr></thead>
+    <tbody>
+      <% logs.forEach(l => { %>
+        <tr>
+          <td><%= l.event %></td>
+          <td style="font-size:12px;color:#94a3b8;"><%= l.data %></td>
+          <td style="font-size:12px;"><%= new Date(l.created_at).toLocaleString('ar-EG') %></td>
+        </tr>
+      <% }); %>
+      <% if (!logs.length) { %>
+        <tr><td colspan="3" style="text-align:center;color:#94a3b8;">لا يوجد سجل</td></tr>
+      <% } %>
+    </tbody>
+  </table>
+</section>
+
+</body>
+</html>
