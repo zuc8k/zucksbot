@@ -1,0 +1,47 @@
+html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>ZUCKS — تسجيل دخول</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+  body {
+    min-height: 100vh; display: grid; place-items: center;
+    background: radial-gradient(circle at top, #1e1b4b, #0f172a 60%);
+    color: #fff;
+  }
+  .card {
+    background: rgba(30, 27, 75, .7);
+    border: 1px solid #4c1d95;
+    padding: 40px; border-radius: 18px;
+    width: 360px; box-shadow: 0 10px 40px rgba(124, 58, 237, .3);
+  }
+  h1 { text-align: center; margin-bottom: 6px; color: #a78bfa; }
+  p.sub { text-align: center; color: #94a3b8; font-size: 13px; margin-bottom: 24px; }
+  input {
+    width: 100%; padding: 12px; margin-bottom: 12px;
+    background: #0f172a; border: 1px solid #334155; border-radius: 10px;
+    color: #fff; outline: none;
+  }
+  input:focus { border-color: #a78bfa; }
+  button {
+    width: 100%; padding: 12px; border: none; border-radius: 10px;
+    background: linear-gradient(90deg, #7c3aed, #a78bfa);
+    color: #fff; font-weight: bold; cursor: pointer; font-size: 15px;
+  }
+  button:hover { opacity: .9; }
+  .error { color: #f87171; text-align: center; margin-bottom: 12px; font-size: 13px; }
+</style>
+</head>
+<body>
+  <form class="card" method="POST" action="/login">
+    <h1>ZUCKS</h1>
+    <p class="sub">لوحة التحكم — سجّل دخولك</p>
+    <% if (error) { %><div class="error"><%= error %></div><% } %>
+    <input name="username" placeholder="اسم المستخدم" required>
+    <input name="password" type="password" placeholder="كلمة المرور" required>
+    <button type="submit">دخول</button>
+  </form>
+</body>
+</html>
