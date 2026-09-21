@@ -22,7 +22,7 @@ Open source discord bot tied to a web control panel — written with **TypeScrip
 
 ```bash
 
-Git clone https://github.com/zuc8k/zucks.git
+Git clone https://github.com/zuc8k/zucksbot
 
 Cd zucks
 
